@@ -1,0 +1,99 @@
+body{
+    background: #ebc8ce;
+  }
+  
+  *{
+    font-family: 'Jua', sans-serif;
+    font-family: 'Nanum Pen Script', cursive;
+      
+  }
+  
+  
+  
+  .navbar {
+      font-size: 45px;
+  
+  }
+  
+  *{margin: 0;padding: 0;
+  box-sizing: border-box;}
+  
+  .navbar{width: 80%;
+  /*background-image: linear-gradient(to right,black, whitesmoke);*/
+  
+  }ssss
+  
+  .navbar-brand{color: #5a515a!important;
+  font-size: 30px;}
+  .nav-link{color: #524286!important;}
+  .nav-link:hover{color: whitesmoke!important;}
+  
+  @media(max-width:1000px){
+      .nav-link{text-align: center;}
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  .nav-item {
+      padding-right: 55px;
+  }
+  
+  
+  /*
+  
+  .menu{
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 8vh;
+  }
+  
+  .menu a{
+      font-size: 40px;
+      color: black;
+      text-decoration: none;
+      position: relative;
+      
+  }
+  
+  .menu a::after{
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width:0;
+      height: 4px;
+      background: whitesmoke;
+      transition: all .5s ease-out;
+  }
+  
+  .menu a:hover::after {
+      width: 100%;
+  }
+  
+  
+  
+  */
+  
+  
+  
+  /*
+  
+      .nav-pills .nav-link.active {
+      background-color: whitesmoke !important;
+          
+  }
+  */
+  
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,55 @@
+
+
+#main{
+    background-color: whitesmoke;
+    text-align: center;
+    width: 80%;
+    border-radius: 20px;
+      
+  }
+  
+  h2{
+    margin-bottom: 20px;
+  
+  }
+  
+  
+  
+  .back:hover, back:focus{
+    background-color: pink;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  
+  
+  }
+  
+  
+  p{
+    text-align: center;
+    font-size: 26px;
+  }
+  
+  
+  
+  /* #coulmns{
+    column-count:3;
+  }
+  #coulmns figure{
+    display: inline-block;
+    column-gap: 0;
+  
+  }
+  
+  #coulmns figure img{
+    width:100%;
+  } */
+  
+  .img-fluid {
+      border-radius: 10px;
+      width: 400px;
+      height: 300px;
+  }
+  
+  .titlecontent {
+      font-size: 30px;
+  }
