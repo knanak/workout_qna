@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="./css/result.css"> -->
     <link rel="stylesheet" href="{% static 'css/curation/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/curation/basic.css' %}">
-    <link rel="stylesheet" href="{% static 'css/curation/qna.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'css/curation/qna.css' %}"> {% endcomment %}
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
@@ -100,7 +100,7 @@
 
 </section>
 
-<section id="qna">
+{% comment %} <section id="qna">
   <div class="status mx-auto mt-5">
         <div class="statusBar">
         </div>
@@ -111,7 +111,7 @@
 
       <div class="answerBox">
       </div>
-</section>
+</section> {% endcomment %}
 
 
   <section id="result" class="my-5 py-3 mx-auto">
@@ -146,6 +146,6 @@
 
   {% comment %} <script src="./js/back.js" charset="utf-8"></script>
 {% endcomment %}
-    <script src="{%static 'js/qna.js'%}" charset="utf-8"></script> 
+    {% comment %} <script src="{%static 'js/qna.js'%}" charset="utf-8"></script>  {% endcomment %}
 </body>
 </html>

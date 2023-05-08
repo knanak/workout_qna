@@ -1,3 +1,7 @@
+body{
+    background: #ebc8ce;
+  }
+
 /* #qna{
     display: none;
   
@@ -5,7 +9,7 @@
    */
 
   
-  .qBox{
+   .qBox{
     background-color: whitesmoke;
     text-align: center;
     border-radius: 20px;
@@ -15,7 +19,7 @@
     margin-bottom: 60px;
   }
   
-  .answerList{
+  /* .answerList{
     background-color: whitesmoke;
     text-align: center;
     border-radius: 20px;
@@ -25,13 +29,63 @@
     font-size: 34px;
     margin-bottom: 30px;
   
-  }
+  } */
   
-  .answerList:hover, answerList:focus{
+  /* .answerList:hover, answerList:focus{
     background-color: pink;
     color: whitesmoke;
-  }
+  } */
   
+  .answerList .answer1 {
+    background-color: whitesmoke;
+    text-align: center;
+    border-radius: 20px;
+    display: block;
+    width: 80%;
+    border: 0px;
+    font-size: 34px;
+    margin-bottom: 30px;
+  }
+
+  .answerList .answer2 {
+    background-color: whitesmoke;
+    text-align: center;
+    border-radius: 20px;
+    display: block;
+    width: 80%;
+    border: 0px;
+    font-size: 34px;
+    margin-bottom: 30px;
+  }
+
+  .answerList .answer3 {
+    background-color: whitesmoke;
+    text-align: center;
+    border-radius: 20px;
+    display: block;
+    width: 80%;
+    border: 0px;
+    font-size: 34px;
+    margin-bottom: 30px;
+  }
+
+  .answerList .answer1:hover{
+    color: pink;
+  }
+
+  .answerList .answer2:hover{
+    color: pink;
+  }
+
+  .answerList .answer3:hover{
+    color: pink;
+  }
+
+
+
+
+
+
   .status{
     height: 20px;
     width: 80%;

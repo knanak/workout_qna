@@ -43,7 +43,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
-        default="postgres://postgres:9076@localhost:5432/qna",
+        default="postgres://postgres:9076@localhost:5432/workout",
     ),
 }
 

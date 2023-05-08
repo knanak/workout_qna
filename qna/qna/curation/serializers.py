@@ -1,12 +1,21 @@
 from rest_framework import serializers
 from. import models
 
-class QnaSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta :
-        model=models.Question
-        fields=("id", "contents")
+        model=models.Category
+        fields=("id", "name")
+
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta :
         model=models.Answer
-        fields=("id", "a1", "a2", "a3")
+        fields=("id", "question", "answer_text", "category")
+
+
+class QnaSerializer(serializers.ModelSerializer):
+    answer_q = AnswerSerializer(many=True)
+    class Meta :
+        model=models.Question
+        fields=("id", "question_text", "answer_q")
+

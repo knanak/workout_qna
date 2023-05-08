@@ -6,11 +6,24 @@ class TimeStamp(models.Model):
     class Meta:
         abstract=True
     
+class Category(TimeStamp):
+    name = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Question(TimeStamp):
-    contents = models.TextField(max_length=500)
+    question_text = models.CharField(max_length=300, null=True)
+
+    def __str__(self):
+        return self.question_text
+
 
 class Answer(TimeStamp):
-    question=models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answer_question')
-    a1 = models.TextField(max_length=700)
-    a2 = models.TextField(max_length=700)
-    a3 = models.TextField(max_length=700)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True, related_name='answer_q')
+    answer_text = models.CharField(max_length=400, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.answer_text
