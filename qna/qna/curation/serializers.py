@@ -8,6 +8,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class AnswerSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
     class Meta :
         model=models.Answer
         fields=("id", "question", "answer_text", "category")

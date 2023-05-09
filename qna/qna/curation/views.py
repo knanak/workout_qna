@@ -26,18 +26,22 @@ def knee(request):
     return render(request, 'curation/knee.html')
 
 def getQna(request):
-    question=get_object_or_404(models.Question)
-    serializer = serializers.QnaSerializer(question)
-    return render(request, 'curation/qna.html', {"question":serializer.data})
+    if request.method == 'GET':
+        question=get_object_or_404(models.Question)
+        serializer = serializers.QnaSerializer(question)
+        return render(request, 'curation/qna.html', {"question":serializer.data})
 
 
 def nextQna(request, q_id):
-    reponse_body={"q":""}
-    question=get_object_or_404(models.Question, pk=q_id)
-    reponse_body['q']=question.question_text
-    # answer=get_object_or_404(models.Answer)
-
-
-    # for i in answer :
-    #     reponse_body[f'a{i.id}']=i.answer_text
-    return JsonResponse(status=200, data=reponse_body)
+    response_body = {"q": "", "answers": []}
+    question = get_object_or_404(models.Question, pk=q_id)
+    response_body['q'] = question.id
+    answers = question.answer_q.all()
+    for answer in answers:
+        response_body['answers'].append({
+            'id': answer.id,
+            'text': answer.answer_text,
+            'category': answer.category.name
+        })
+    print(response_body['answers'][1]['id'])
+    return JsonResponse(status=200, data=response_body)

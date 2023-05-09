@@ -41,7 +41,7 @@ function goNext(qnaId){
 const qID = document.getElementById(qnaId);
 const qIdx = qnaId.split("-").shift()
 const aIdx = qnaId.split("-").pop()
-
+console.log(qIdx, aIdx)
 if(qIdx === endPoint){
   goResult();
   return;
@@ -49,13 +49,13 @@ if(qIdx === endPoint){
 
 const url = '/qna/'+ qIdx
 fetch(url, {
-    mode : 'same-origin'
-  })
+  mode : 'same-origin'
+})
   .then(response => {
     return response.json() //Convert response to JSON
   })
   .then(data => {
-    console.log(data)
+    // console.log(data.q)
   })
 }
 

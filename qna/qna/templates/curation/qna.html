@@ -22,7 +22,7 @@
 
         <div class="answerList">
             {%for i in question.answer_q%}
-            <button id="{{question.id}}-{{i.id}}" onclick="goNext(this.id)" class="answer1">{{i.answer_text}}</button><br>
+            <button id="{{question.id}}-{{i.category.name}}" onclick="goNext(this.id)" class="answer1">{{i.answer_text}}</button><br>
             {%endfor%}
             <!-- <button class="answer2">eeee</button><br>
             <button class="answer3">eeee</button><br> -->
