@@ -1,5 +1,6 @@
 const main = document.querySelector("#main");
-const qna = document.querySelector("#qna");
+const qna = document.querySelector(".qBox");
+const answer = document.querySelectorAll('.answer1');
 const result = document.querySelector("#result");
 const endPoint = 7;
 const select = [];
@@ -37,25 +38,62 @@ const select = [];
 //   }, false);
 // }
 
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+
+
 function goNext(qnaId){
 const qID = document.getElementById(qnaId);
 const qIdx = qnaId.split("-").shift()
 const aIdx = qnaId.split("-").pop()
-console.log(qIdx, aIdx)
+
+const csrftoken = getCookie('csrftoken');
+
+
 if(qIdx === endPoint){
   goResult();
   return;
 }
 
-const url = '/qna/'+ qIdx
+
+const url = '/qna/' + qIdx;
 fetch(url, {
-  mode : 'same-origin'
+  method : 'POST',
+  mode : 'same-origin',
+  headers : { 'X-CSRFToken': csrftoken},
+  
 })
-  .then(response => {
-    return response.json() //Convert response to JSON
-  })
+  .then(response =>response.json()) //Convert response to JSON
   .then(data => {
-    // console.log(data.q)
+    qna.innerHTML = data['q'];
+
+    answer[0].innerHTML = data['answers'][0]['text'];
+    answer[1].innerHTML = data['answers'][1]['text'];
+    answer[2].innerHTML = data['answers'][2]['text'];
+    
+        // check if qIdx is 7, if not, call goNext with the next qIdx
+        if (qIdx < 7) {
+          const nextIdx = parseInt(qIdx) + 1;
+          const nextId = "q-" + nextIdx + "-" + aIdx;
+          goNext(nextId);
+        } else {
+          // if qIdx is 7, call goResult
+          goResult();
+        }
+
   })
 }
 

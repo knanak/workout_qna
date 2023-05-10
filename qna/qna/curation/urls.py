@@ -11,7 +11,9 @@ urlpatterns = [
     path("back/", views.back, name="back"),
     path("hip/", views.hip, name="hip"),
     path("knee/", views.knee, name="knee"),
-    path("qna/", views.getQna, name="getQna"),
-    path("qna/<int:q_id>", views.nextQna, name="nextQna"),
+    path("qna/<int:q_id>", views.getQna, name="getQna"),
+    # path("qna/<int:q_id>", views.nextQna, name="nextQna"),
+    
+
 
 ]
