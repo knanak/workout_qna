@@ -11,7 +11,7 @@ class AnswerSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     class Meta :
         model=models.Answer
-        fields=("id", "question", "answer_text", "category")
+        fields='__all__'
 
 
 class QnaSerializer(serializers.ModelSerializer):
@@ -20,3 +20,8 @@ class QnaSerializer(serializers.ModelSerializer):
         model=models.Question
         fields=("id", "question_text", "answer_q")
 
+class ResultSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    class Meta :
+        model=models.Result
+        fields=("id", "name", "desc", "category")

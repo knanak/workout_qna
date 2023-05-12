@@ -54,48 +54,64 @@ function getCookie(name) {
   return cookieValue;
 }
 
+// function nextAnswer(qIdx, aIdx){
+//   answer[0].addEventListener("click", function(){ // answer이 버튼이 아니어서 에러남
 
-function goNext(qnaId){
-const qID = document.getElementById(qnaId);
-const qIdx = qnaId.split("-").shift()
-const aIdx = qnaId.split("-").pop()
+//     setTimeout(() => {
+//       select[qIdx] = aIdx;
+      
+//       goNext(++qIdx);
+//     },450)
+//   }, false);
+// }
 
+
+
+async function goNext(qqq){
+// let qIdx = parseInt(qqq.split("-").shift())
+// let aName = qqq.split("-").pop()
 const csrftoken = getCookie('csrftoken');
 
 
-if(qIdx === endPoint){
-  goResult();
-  return;
-}
+// if(qqq === endPoint){
+//   goResult();
+//   return;
+// }
 
 
-const url = '/qna/' + qIdx;
-fetch(url, {
+const url = '/qna/' + qqq + '/';
+await fetch(url, {
   method : 'POST',
   mode : 'same-origin',
   headers : { 'X-CSRFToken': csrftoken},
-  
 })
-  .then(response =>response.json()) //Convert response to JSON
+  .then((response) => {
+    if (!response.ok) {
+      // error processing
+      throw 'Error';
+  }
+  return response.json()
+  }) 
   .then(data => {
     qna.innerHTML = data['q'];
 
-    answer[0].innerHTML = data['answers'][0]['text'];
-    answer[1].innerHTML = data['answers'][1]['text'];
-    answer[2].innerHTML = data['answers'][2]['text'];
+    answer[0].innerHTML = data['a'][0]['text'];
+    answer[1].innerHTML = data['a'][1]['text'];
+    answer[2].innerHTML = data['a'][2]['text'];
     
-        // check if qIdx is 7, if not, call goNext with the next qIdx
-        if (qIdx < 7) {
-          const nextIdx = parseInt(qIdx) + 1;
-          const nextId = "q-" + nextIdx + "-" + aIdx;
-          goNext(nextId);
-        } else {
-          // if qIdx is 7, call goResult
-          goResult();
-        }
+    answer[0].addEventListener("click", function(){
+      goNext(++qqq)
+    })
+    // answer[1].addEventListener("click", function(){
+    //   goNext(++qqq)
+    // })
+    // answer[2].addEventListener("click", function(){
+    //   goNext(++qqq)
+    // })
 
   })
 }
+
 
 
 // function begin(){

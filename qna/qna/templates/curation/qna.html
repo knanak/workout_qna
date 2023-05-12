@@ -21,14 +21,19 @@
         <div class="qBox my-5 py-1 mx-auto">{{question.question_text}}</div>
 
         <div class="answerList">
-            {%for i in question.answer_q%}
-            <button id="{{question.id}}-{{i.category.id}}" onclick="goNext(this.id)" class="answer1">{{i.answer_text}}</button><br>
-            {%endfor%}
-            <!-- <button class="answer2">eeee</button><br>
-            <button class="answer3">eeee</button><br> -->
+
+
+                {%for i in question.answer_q%}
+               
+                <button id="{{question.id}}" onclick="goNext(this.id)" class="answer1">{{i.answer_text}}</button><br>
+                {%endfor%}
+                <!-- <button class="answer2">eeee</button><br>
+                <button class="answer3">eeee</button><br> -->
+
+            </form>
         </div>
                 
             
-        <script src="{%static 'js/qna.js'%}" charset="utf-8"></script> 
+    <script src="{%static 'js/qna.js'%}" charset="utf-8"></script> 
 </body>
 </html>

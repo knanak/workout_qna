@@ -137,6 +137,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # 'curation.middleware.RefreshBackMiddleware'
 ]
 
 # STATIC
