@@ -1,25 +1,22 @@
-/* #qna{
-    display: none;
-  
+#qna{
+      margin-top: 80px;
   }
-   */
 
-  
   .qBox{
     background-color: whitesmoke;
     text-align: center;
     border-radius: 20px;
     font-size: 38px;
-  
     width: 80%;
     margin-bottom: 60px;
+    
   }
   
-  .answerList{
+  .answer1{
     background-color: whitesmoke;
     text-align: center;
     border-radius: 20px;
-    display: block;
+    /* display: block; */
     width: 80%;
     border: 0px;
     font-size: 34px;
@@ -28,7 +25,7 @@
   }
   
   .answerList:hover, answerList:focus{
-    background-color: pink;
+    background-color: #ebc8ce;
     color: whitesmoke;
   }
   

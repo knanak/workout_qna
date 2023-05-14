@@ -1,13 +1,10 @@
 body{
     background: #ebc8ce;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-/* #qna{
-    display: none;
-  
   }
-   */
-
   
    .qBox{
     background-color: whitesmoke;
@@ -47,7 +44,7 @@ body{
     margin-bottom: 30px;
   }
 
-  .answerList .answer2 {
+  /* .answerList .answer2 {
     background-color: whitesmoke;
     text-align: center;
     border-radius: 20px;
@@ -67,19 +64,19 @@ body{
     border: 0px;
     font-size: 34px;
     margin-bottom: 30px;
-  }
+  } */
 
   .answerList .answer1:hover{
     color: pink;
   }
 
-  .answerList .answer2:hover{
+  /* .answerList .answer2:hover{
     color: pink;
   }
 
   .answerList .answer3:hover{
     color: pink;
-  }
+  } */
 
 
 

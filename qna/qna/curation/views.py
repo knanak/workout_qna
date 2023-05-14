@@ -59,9 +59,12 @@ def getQna(request, q_id):
 
 
     elif request.method == 'POST':
-        response_body = {"q": "", "a": []}
+        response_body = {"q": "", "a": [], "q_id":""}
         question=models.Question.objects.get(id=q_id+1)
+        print(question.id)
         response_body['q'] = question.question_text
+        response_body['q_id'] = question.id
+
         answers = question.answer_q.all()
         for answer in answers:
             response_body['a'].append({

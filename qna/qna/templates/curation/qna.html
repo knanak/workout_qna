@@ -9,11 +9,12 @@
 
     <link rel="stylesheet" href="{% static 'css/curation/test.css' %}">
     <link rel="stylesheet" href="{% static 'css/curation/main.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/curation/qna.css' %}"> -->
     <link rel="stylesheet" href="{% static 'css/curation/animation.css' %}">
     <title>Document</title>
 </head>
 <body>
-
+    <section id="question" class="mx-auto pb-3 pt-3">
     <div class="status mx-auto mt-5">
             <div class="statusBar"></div>
     </div>
@@ -21,19 +22,14 @@
         <div class="qBox my-5 py-1 mx-auto">{{question.question_text}}</div>
 
         <div class="answerList">
-
-
                 {%for i in question.answer_q%}
-               
                 <button id="{{question.id}}" onclick="goNext(this.id)" class="answer1">{{i.answer_text}}</button><br>
                 {%endfor%}
                 <!-- <button class="answer2">eeee</button><br>
                 <button class="answer3">eeee</button><br> -->
 
-            </form>
-        </div>
-                
-            
+        </div>        
+    </section>
     <script src="{%static 'js/qna.js'%}" charset="utf-8"></script> 
 </body>
 </html>
