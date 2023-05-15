@@ -3,7 +3,7 @@ const qna = document.querySelector(".qBox");
 const answerList = document.querySelector(".answerList");
 const answer = document.querySelectorAll('.answer1');
 const result = document.querySelector("#result");
-const endPoint = 7;
+const endPoint = 11;
 const select = [];
 
 
@@ -23,43 +23,54 @@ function getCookie(name) {
   return cookieValue;
 }
 
-
-async function goNext(qqq){
-const csrftoken = getCookie('csrftoken');
-
-
-// if(qqq === endPoint){
-//   goResult();
-//   return;
-// }
-
-
-const url = '/qna/' + qqq + '/';
-await fetch(url, {
-  method : 'POST',
-  mode : 'same-origin',
-  headers : { 'X-CSRFToken': csrftoken},
-})
-  .then((response) => {
-    if (!response.ok) {
-      // error processing
-      throw 'Error';
-  }
-  return response.json()
-  }) 
-  .then(data => {
-    qna.innerHTML = data['q'];
-    
-    for(let i=0; i < answer.length; i++){
-      answer[i].innerHTML = data['a'][i]['text'];
-    }
-
-    let q_id = data['q_id'].toString()
-    console.log(q_id)
-    answerList.addEventListener("click", function() {
-      goNext(q_id);
-    }, { once: true });
-
-  })
+function goResult() {
+  alert('dd')
 }
 
+
+function goNext(qqq) {
+  const csrftoken = getCookie('csrftoken');
+
+  const url = '/qna/' + qqq + '/';
+  fetch(url, {
+    method: 'POST',
+    mode: 'same-origin',
+    headers: { 'X-CSRFToken': csrftoken },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw 'Error';
+      }
+      return response.json();
+    })
+    .then(data => {
+      qna.innerHTML = data['q'];
+      // console.log(answer[0].qid)
+      for (let i = 0; i < answer.length; i++) {
+        answer[i].innerHTML = data['a'][i]['text'];
+        answer[i].qid = data['q_id'].toString();
+        // answer[i].removeEventListener('click', clickHandler); 
+        // answer[i].addEventListener('click', clickHandler);
+      }
+      answerList.removeEventListener('click', clickHandler); 
+      answerList.addEventListener('click', clickHandler); // , {once:true}를 누르면, 오히려 오름차순 진행이 안됨
+
+      function clickHandler(event) {
+        const q_id = event.target.qid;
+        console.log(q_id)
+        goNext(q_id);
+        // if (q_id===endPoint.toString()){
+        //   goResult()
+        //   return;
+        // } 
+        // else {
+          
+        // }
+    
+          
+      }
+
+    });
+
+
+}
