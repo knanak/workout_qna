@@ -23,10 +23,10 @@
 
         <div class="answerList">
                 {%for i in question.answer_q%}
-                <button id="{{question.id}}" onclick="goNext(this.id)" class="answer1">{{i.answer_text}}</button><br>
+                <!-- <button id="{{question.id}}-{{i.id}}" onclick="goNext(this.id)" class="answer1">{{i.answer_text}}</button><br> -->
+                <a id="{{question.id}}-{{i.id}}" href="{% url 'curation:getQna' question.id %}" onclick="goNext(this.id)">{{ i.answer_text }}</a>
                 {%endfor%}
-                <!-- <button class="answer2">eeee</button><br>
-                <button class="answer3">eeee</button><br> -->
+   
 
         </div>        
     </section>
