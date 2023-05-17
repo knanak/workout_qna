@@ -44,6 +44,7 @@ function goResult(category, value) {
 async function goNext(qqq) {
   const Qqid=qqq.split("-").shift()
   const aid=qqq.split("-").pop()
+  console.log(aid)
   a_num=(parseInt(aid)-16)%3
 
   // 선택한 답안을 session 스토리지에 저장하기
@@ -59,10 +60,11 @@ async function goNext(qqq) {
   const csrftoken = getCookie('csrftoken');
 
   const url = '/qna/' + Qqid + '/';
-  fetch(url, {
+  await fetch(url, {
     method: 'POST',
     mode: 'same-origin',
-    headers: { 'X-CSRFToken': csrftoken },
+    headers: { 'X-CSRFToken': csrftoken ,'Content-Type': 'application/json',},
+    body : JSON.stringify(aid),
   })
     .then((response) => {
       if (!response.ok) {
@@ -117,18 +119,23 @@ async function goNext(qqq) {
           
       // }
 
-    })
-      .then(function(){
-        console.log(sessionStorage.getItem("r"));
-        const url = '/result'; // url로 최고값을 보내면 됨
-        fetch(url)
-          .then((response) => response.json())      
-          .then((data) => console.log(data));
+    }).then(goResult())
+//       .then(function(){
+//         console.log('sss')
+//         console.log(sessionStorage.getItem("r"));
+//         const url = '/result'; // url로 최고값을 보내면 됨
+//         fetch(url)
+//           .then((response) => response.json())      
+//           .then((data) => console.log(data));
 
-          // .then((data) => console.log(data));
+//           // .then((data) => console.log(data));
 
-    }
+//     }
 
-)}
+// )
 
+
+}
+// console.log(sessionStorage.getItem('a'))
+// sessionStorage.clear()
         

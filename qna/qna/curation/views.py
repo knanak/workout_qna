@@ -2,6 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from. import models, serializers
+import json, copy
+from operator import itemgetter
+selected=[]
+answer=[]
+
 first=5
 endPont=11
 
@@ -35,21 +40,18 @@ def getQna(request, q_id):
         # serializer = serializers.QnaSerializer(question)
         # return render(request, 'curation/qna.html', {"question":serializer.data})
         if q_id==5:
-            if 'aa' not in request.session: 
-                request.session['aa'] = 'first'
+            if 'first' not in request.session: 
+                request.session['first'] = 'first'
                 question=get_object_or_404(models.Question, pk=q_id)
                 serializer = serializers.QnaSerializer(question)
                 return render(request, 'curation/qna.html', {"question":serializer.data})
             else :
-                del request.session['aa']
+                del request.session['first']
                 question=get_object_or_404(models.Question, pk=q_id+1)
                 serializer = serializers.QnaSerializer(question)
                 return render(request, 'curation/qna.html', {"question":serializer.data})
             
         elif q_id==endPont:
-            # 선택한 답 저장하여 계산하고 result로 넘겨주기
-            # result=get_object_or_404(models.Result, pk=2)
-            # serializer = serializers.QnaSerializer(result)
             return redirect(reverse('curation:result'))
         
         else :
@@ -60,53 +62,46 @@ def getQna(request, q_id):
 
     elif request.method == 'POST':
         response_body = {"q": "", "a": [], "q_id":""}
-        question=models.Question.objects.get(id=q_id+1)
-        response_body['q'] = question.question_text
-        response_body['q_id'] = question.id
+        # question=models.Question.objects.get(id=q_id+1)
+        # response_body['q'] = question.question_text
+        # response_body['q_id'] = question.id
 
-        answers = question.answer_q.all()
-        for answer in answers:
-            response_body['a'].append({
-            'id': answer.id,
-            'text': answer.answer_text,
-            'category': answer.category.name,
-            'value':answer.value,
-        })
+        # answers = question.answer_q.all()
+        # for answer in answers:
+        #     response_body['a'].append({
+        #     'id': answer.id,
+        #     'text': answer.answer_text,
+        #     'category': answer.category.name,
+        #     'value':answer.value,
+        # })
+        data = json.loads(request.body.decode('utf-8'))
+        selected.append(data)
+
         return JsonResponse(status=200, data=response_body)
     
 
 
-def result(request): # 최고값인 category를 전달 받아 resultSerializer로 html에 전달해주기
-    return render(request, 'curation/result.html')
+def result(request):
+    # 최고값인 category를 전달 받아 resultSerializer로 html에 전달해주기
+    point={}
+     
+    global selected
+    answer=copy.deepcopy(selected)
+    selected=[]
 
-def nextQna(request, q_id):
-    response_body = {"q": "", "answers": []}
-    question = get_object_or_404(models.Question, pk=q_id)
-    response_body['q'] = question.id
-    answers = question.answer_q.all()
-    for answer in answers:
-        response_body['answers'].append({
-            'id': answer.id,
-            'text': answer.answer_text,
-            'category': answer.category.name,
-            'value':answer.value,
-        })
+    for a_id in answer:
+        a=models.Answer.objects.get(id=a_id)
+        if a.category in point :
+            point[a.category]+=a.value
+        else :
+            point[a.category]=a.value
 
-    return JsonResponse(status=200, data=response_body)
-
-
-def get_next_question(request, current_question_id):
-    current_question = models.Question.objects.get(id=current_question_id)
-    next_question = models.Question.objects.filter(id__gt=current_question_id).first()
-
-    if next_question is None:
-        # We've reached the end of the questions
-        return JsonResponse({'status': 'end'})
+    point=sorted(point.items(), key=lambda x: x[1])
+ 
+    pointer=point[-1][0]
+    answer_result=models.Result.objects.get(category=pointer)
+    serializer = serializers.ResultSerializer(answer_result)
     
-    next_answer = models.Answer.objects.filter(question=next_question).first()
-    return JsonResponse({
-        'status': 'ok',
-        'next_question': next_question.question_text,
-        'next_answer': next_answer.answer_text,
-        'next_question_id': next_question.id,
-    })
+    return render(request, 'curation/result.html', {'result':serializer.data})
+
+

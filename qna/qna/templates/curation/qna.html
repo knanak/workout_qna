@@ -22,13 +22,13 @@
         <div class="qBox my-5 py-1 mx-auto">{{question.question_text}}</div>
 
         <div class="answerList">
-                {%for i in question.answer_q%}
-                <!-- <button id="{{question.id}}-{{i.id}}" onclick="goNext(this.id)" class="answer1">{{i.answer_text}}</button><br> -->
-                <a id="{{question.id}}-{{i.id}}" href="{% url 'curation:getQna' question.id %}" onclick="goNext(this.id)">{{ i.answer_text }}</a>
-                {%endfor%}
-   
 
-        </div>        
+            {%for i in question.answer_q %}
+            <a id="{{question.id}}-{{i.id}}" href="{% url 'curation:getQna' question.id %}" onclick="goNext(this.id)">{{ i.answer_text }}</a>
+            <br>
+            {%endfor%}
+        </div>   
+
     </section>
     <script src="{%static 'js/qna.js'%}" charset="utf-8"></script> 
 </body>

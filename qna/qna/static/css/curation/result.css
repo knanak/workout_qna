@@ -27,6 +27,12 @@
     margin-bottom: 50px;
     margin-top: 50px;
   }
+
+  .youtube .target{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    border: 0;
+  }
+
   
   .resultDesc{
     font-size: 31px;
@@ -35,6 +41,8 @@
      letter-spacing: 1px;
      line-height: 35px;
   }
+
+  
   
   /* .show{
     display: block;

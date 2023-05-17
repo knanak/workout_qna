@@ -26,6 +26,10 @@ class Answer(TimeStamp):
     value=models.IntegerField(default=0, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
+    class Meta:
+        ordering = ['id']
+
+
     def __str__(self):
         return self.answer_text
     

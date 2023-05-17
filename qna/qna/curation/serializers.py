@@ -12,6 +12,7 @@ class AnswerSerializer(serializers.ModelSerializer):
     class Meta :
         model=models.Answer
         fields='__all__'
+        
 
 
 class QnaSerializer(serializers.ModelSerializer):
@@ -24,4 +25,4 @@ class ResultSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     class Meta :
         model=models.Result
-        fields=("id", "name", "desc", "category")
+        fields=("id", "name", "desc", "category", "youtube")
