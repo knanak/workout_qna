@@ -4,12 +4,12 @@
 {% load static%}
 
 {%block content%}
-<section id="result" class="my-5 py-3 mx-auto">
+<section id="result" class="mx-auto">
 
     <div class="resultName">{{result.name}}</div>
     
     <div class="youtube" class="my-5 col-lg-6 col-md-8 col-sm-10 col- mx-auto">
-        <iframe class="target"  src={{result.youtube}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <embed class="target" src={{result.youtube}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></embed>
     </div>
 
     <div class="resultDesc">{{result.desc}}</div>

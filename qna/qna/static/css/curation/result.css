@@ -1,7 +1,8 @@
 #result{
     /* display: none; */
     background-color: whitesmoke;
-    width: 60%;
+    width: 100%;
+    height: 100%;
     text-align: center;
     border-radius: 20px;
   
@@ -23,14 +24,18 @@
     margin-bottom: 40px;
   }
   
-  .youtube{
-    margin-bottom: 50px;
-    margin-top: 50px;
-  }
-
-  .youtube .target{
-    position:absolute;top:0;left:0;width:100%;height:100%;
+  .youtube {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px; /* Adjust the height as desired */
     border: 0;
+  }
+  
+  .youtube .target {
+    width: 80%; /* Adjust the width as desired */
+    height: 80%; /* Adjust the height as desired */
   }
 
   

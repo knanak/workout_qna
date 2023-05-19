@@ -24,7 +24,7 @@
         <div class="answerList">
 
             {%for i in question.answer_q %}
-            <a id="{{question.id}}-{{i.id}}" href="{% url 'curation:getQna' question.id %}" onclick="goNext(this.id)">{{ i.answer_text }}</a>
+            <a id="{{question.question_category.name}}-{{question.id}}-{{i.id}}" href="{% url 'curation:getQna' question.question_category.name question.id %}" onclick="goNext(this.id)">{{ i.answer_text }}</a>
             <br>
             {%endfor%}
         </div>   

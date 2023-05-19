@@ -11,7 +11,7 @@
 
   
   
-  <button type="button" class="back btn-outline-danger btn-lg" onclick = 'location.href = "{% url 'curation:getQna' 5 %}"' >시작하기</button>
+  <button type="button" class="back btn-outline-danger btn-lg" onclick = 'location.href = "{% url 'curation:getQna' data.question_category.name data.id %}"' >시작하기</button>
   
   {% comment %} onclick="js:begin()" {% endcomment %}
 {%endblock content%}

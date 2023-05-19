@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import Q
 from. import models, serializers
 import json, copy
 from operator import itemgetter
@@ -15,47 +16,55 @@ def main(request):
     return render(request, 'curation/main.html')
 
 def neck(request):
-    return render(request, 'curation/neck.html')
+    question=models.Question.objects.filter(question_category__name__iexact='neck').first()
+    serializer = serializers.QnaSerializer(question)
+    return render(request, 'curation/neck.html', {'data':serializer.data})
 
 def shoulder(request):
-    return render(request, 'curation/shoulder.html')
+    question=models.Question.objects.filter(question_category__name__iexact='shoulder').first()
+    serializer = serializers.QnaSerializer(question)
+    return render(request, 'curation/shoulder.html', {'data':serializer.data})
 
 def back(request):
-    # question=get_object_or_404(models.Question)
-    # serializer = serializers.QnaSerializer(question)
-    return render(request, 'curation/back.html')
+    question=models.Question.objects.filter(question_category__name__iexact='back').first()
+    serializer = serializers.QnaSerializer(question)
+    return render(request, 'curation/back.html', {'data':serializer.data})
 
 
 def hip(request):
-    return render(request, 'curation/hip.html')
+    question=models.Question.objects.filter(question_category__name__iexact='hip').first()
+    serializer = serializers.QnaSerializer(question)
+    return render(request, 'curation/hip.html', {'data':serializer.data})
 
 
 def knee(request):
-    return render(request, 'curation/knee.html')
+    question=models.Question.objects.filter(question_category__name__iexact='knee').first()
+    serializer = serializers.QnaSerializer(question)
+    return render(request, 'curation/knee.html', {'data':serializer.data})
 
-def getQna(request, q_id):
+def getQna(request, q_name, q_id):
     if request.method == 'GET':
         # question=get_object_or_404(models.Question, pk=1)
         # question=models.Question.objects.get(id=q_id)
         # serializer = serializers.QnaSerializer(question)
         # return render(request, 'curation/qna.html', {"question":serializer.data})
-        if q_id==5:
+        if q_id % 7 == 5:
             if 'first' not in request.session: 
                 request.session['first'] = 'first'
-                question=get_object_or_404(models.Question, pk=q_id)
+                question = models.Question.objects.get(question_category__name__iexact=q_name, id=q_id)
                 serializer = serializers.QnaSerializer(question)
                 return render(request, 'curation/qna.html', {"question":serializer.data})
             else :
                 del request.session['first']
-                question=get_object_or_404(models.Question, pk=q_id+1)
+                question = models.Question.objects.get(question_category__name__iexact=q_name, id=q_id+1)
                 serializer = serializers.QnaSerializer(question)
                 return render(request, 'curation/qna.html', {"question":serializer.data})
             
-        elif q_id==endPont:
+        elif q_id % 7 == 4:
             return redirect(reverse('curation:result'))
         
         else :
-            question=get_object_or_404(models.Question, pk=q_id+1)
+            question = models.Question.objects.get(question_category__name__iexact=q_name, id=q_id+1)
             serializer = serializers.QnaSerializer(question)
             return render(request, 'curation/qna.html', {"question":serializer.data})
 
@@ -76,7 +85,7 @@ def getQna(request, q_id):
         # })
         data = json.loads(request.body.decode('utf-8'))
         selected.append(data)
-
+        print(data)
         return JsonResponse(status=200, data=response_body)
     
 
@@ -84,8 +93,8 @@ def getQna(request, q_id):
 def result(request):
     # 최고값인 category를 전달 받아 resultSerializer로 html에 전달해주기
     point={}
-     
     global selected
+    print(selected)
     answer=copy.deepcopy(selected)
     selected=[]
 
@@ -97,8 +106,8 @@ def result(request):
             point[a.category]=a.value
 
     point=sorted(point.items(), key=lambda x: x[1])
- 
     pointer=point[-1][0]
+    print(pointer)
     answer_result=models.Result.objects.get(category=pointer)
     serializer = serializers.ResultSerializer(answer_result)
     

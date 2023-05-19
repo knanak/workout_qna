@@ -9,7 +9,8 @@ class AnswerInline(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
 
-admin.site.register(Category)
+admin.site.register(QuestionCategory)
+admin.site.register(AnswerCategory)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Result)
 

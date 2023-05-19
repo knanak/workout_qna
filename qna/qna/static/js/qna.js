@@ -42,9 +42,9 @@ function goResult(category, value) {
 
 
 async function goNext(qqq) {
-  const Qqid=qqq.split("-").shift()
-  const aid=qqq.split("-").pop()
-  console.log(aid)
+  const Qname=qqq.split("-")[0]
+  const Qqid=qqq.split("-")[1]
+  const aid=qqq.split("-")[2]
   a_num=(parseInt(aid)-16)%3
 
   // 선택한 답안을 session 스토리지에 저장하기
@@ -52,14 +52,14 @@ async function goNext(qqq) {
   let answersArray = JSON.parse(sessionStorage.getItem('a')) || [];
 
   // Add the clicked answer ID to the array
-  answersArray.push(a_num);
+  answersArray.push(Qname);
 
   // Store the updated array in session storage
   sessionStorage.setItem('a', JSON.stringify(answersArray));
 
   const csrftoken = getCookie('csrftoken');
 
-  const url = '/qna/' + Qqid + '/';
+  const url = '/qna/' + Qname +'/'+ Qqid + '/';
   await fetch(url, {
     method: 'POST',
     mode: 'same-origin',
