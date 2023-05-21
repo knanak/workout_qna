@@ -75,9 +75,14 @@
         <li class="nav-item">
           <a class="nav-link" href="{%url 'curation:hip'%}">고관절</a>
         </li>
-          <li class="nav-item">
-          <a class="nav-link" href="{%url 'curation:knee'%}">무릎</a>
-        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{%url 'curation:knee'%}">무릎</a>
+      </li>
+      {% if request.user.is_authenticated and request.user.is_staff %}
+      <li class="nav-item">
+        <a class="nav-link" href="{%url 'curation:register'%}">QnA 등록</a>
+      </li>
+      {%endif%}
 <!--
          <li class="nav-item">
           <a class="nav-link" href="#">커뮤니티</a>

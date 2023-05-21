@@ -37,10 +37,11 @@ class Answer(TimeStamp):
     class Meta:
         ordering = ['id']
 
-
     def __str__(self):
-        return self.answer_text
-    
+        if self.answer_text:
+            return self.answer_text
+        else:
+            return "No answer provided"
 
 class Result(TimeStamp):
     name = models.CharField(max_length=500, null=True)

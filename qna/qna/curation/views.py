@@ -2,16 +2,34 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
-from. import models, serializers
+from . import models, serializers, forms
 import json, copy
 from operator import itemgetter
+
 selected=[]
 answer=[]
+first, endPont=5, 11
 
-first=5
-endPont=11
+def register(request):
+    if request.method=='GET':
+        form=forms.QnaForm()
+        return render(request, 'curation/register.html', {'form':form})
+    
+    elif request.method=='POST':
+        form=forms.QnaForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            # answer_texts = []
+            # for answer_form in form.answer_forms:
+            #     answer_text = answer_form.cleaned_data['answer_text']
+            #     if answer_text:
+            #         answer_texts.append(answer_text)
+            #         print(answer_texts)
+            
+            # form.save()
 
-# Create your views here.
+            return render(request, 'curation/register.html', {'form':form})
+        
 def main(request):
     return render(request, 'curation/main.html')
 

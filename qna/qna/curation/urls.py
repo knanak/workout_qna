@@ -13,8 +13,7 @@ urlpatterns = [
     path("knee/", views.knee, name="knee"),
     path("qna/<str:q_name>/<int:q_id>/", views.getQna, name="getQna"),
     path("result/", views.result, name="result"),
-    # path("qna/<int:q_id>", views.nextQna, name="nextQna"),
-    
 
+    path("qnaResister/", views.register, name="register"),
 
 ]

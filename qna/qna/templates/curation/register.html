@@ -1,0 +1,20 @@
+{%extends 'curation/base.html'%}
+{% load static%}
+
+{%block content%}
+<form action="{% url 'curation:register' %}" method="post">
+    {%csrf_token%}
+    <div class="form">
+        {{ form.as_p }}
+        {% for answer_form in form.answer_forms %}
+            선택지 : {{ answer_form.answer_text}}
+            점수 : {{ answer_form.value}}
+            카테고리 : {{ answer_form.category}}
+
+            
+            <br><br>
+        {% endfor %}
+        <input type="submit" value="다음">
+    </div>
+</form>
+{%endblock content%}
