@@ -1,0 +1,6 @@
+
+<form action="{%url 'users:register'%}" method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="가입하기">
+</form>

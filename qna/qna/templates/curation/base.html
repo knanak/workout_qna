@@ -78,20 +78,29 @@
         <li class="nav-item">
         <a class="nav-link" href="{%url 'curation:knee'%}">무릎</a>
       </li>
-      {% if request.user.is_authenticated and request.user.is_staff %}
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'curation:register'%}">QnA 등록</a>
-      </li>
-      {%endif%}
-<!--
-         <li class="nav-item">
-          <a class="nav-link" href="#">커뮤니티</a>
-        </li>
--->
-     </ul>
+    </ul>
     </div>
   </div>
 </nav>
+
+  <div class="users">
+    {% if not request.user.is_authenticated %}
+        <a class="user_link" href="{%url 'users:login'%}">로그인</a>
+        <br>
+        <a class="user_link" href="{% url 'users:register' %}">회원가입</a>
+        <br><br>
+      {% elif request.user.is_authenticated %}
+    
+        <a class="user_link" href="{%url 'users:logout'%}">로그아웃</a>
+        <br>
+        {% if request.user.user_type.userType == 'trainer' %}
+        
+            <a class="user_link" href="{%url 'curation:register'%}">QnA 등록</a>
+            <br>
+        {%endif%}
+      {%endif%}
+
+  </div>
   
 
 
@@ -103,7 +112,7 @@
 
 {% endblock %}
 
-</section>
+<!-- </section>
 
 {% comment %} <section id="qna">
   <div class="status mx-auto mt-5">
@@ -130,9 +139,9 @@
             <div style = "text-align:center; margin-top:2px;"> <div style="font-size:10px;"> <span class="ad">광고 / 제휴 / 개인PT 문의 : weplaylegowithyou@gmail.com</span> </div> <div style="margin-top:1rem;"> <h6 style="font-family: 'Lobster', cursive;"></h6> </div> </div>
 
 <div id="disqus_thread" style = "margin-bottom:5px;"></div>
-</section>
+</section> -->
 
-</div> {% endcomment %}
+</div> 
 
 
 <script>

@@ -8,7 +8,17 @@ body{
       
   }
   
-  
+  .users {
+    font-size: 26px;
+    text-align: right;
+    
+  }
+
+  .users .user_link{
+    color: #5a515a !important;
+    text-decoration: none;
+  }
+  .users .user_link:hover{color: rgb(252, 40, 206)!important;}
   
   .navbar {
       font-size: 45px;
@@ -31,12 +41,6 @@ body{
   @media(max-width:1000px){
       .nav-link{text-align: center;}
   }
-  
-  
-  
-  
-  
-  
   
   
   .nav-item {

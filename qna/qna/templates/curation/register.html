@@ -5,16 +5,33 @@
 <form action="{% url 'curation:register' %}" method="post">
     {%csrf_token%}
     <div class="form">
-        {{ form.as_p }}
-        {% for answer_form in form.answer_forms %}
-            선택지 : {{ answer_form.answer_text}}
-            점수 : {{ answer_form.value}}
-            카테고리 : {{ answer_form.category}}
+        {{form.as_p}}
+        <br><br>
+        <style>
+            .answer_table {
+                margin: 0 auto;
+            }
+        </style>
 
+        <table class="answer_table">
+            <tr>
+                <th>답안</th>
+                <th>가중치</th>
+                <th>카테고리</th>
+            </tr>
             
-            <br><br>
-        {% endfor %}
+            {% for form in formset %}
+            {{formset.management_form}}
+            <tr>
+                <td>{{ form.answer_text }}</td>
+                <td>{{ form.value }}</td>
+                <td>{{ form.category }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br><br><br>
         <input type="submit" value="다음">
     </div>
 </form>
 {%endblock content%}
+
