@@ -3,6 +3,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
 from django.forms import formset_factory
+from django.core.cache import cache
 from . import models, serializers, forms
 import json, copy
 from operator import itemgetter
@@ -10,47 +11,43 @@ from operator import itemgetter
 selected=[]
 answer=[]
 first, endPont=5, 11
+
+
+def manage(request):
+    return render(request, 'users/manage.html')
+
 cnt = 0
-                                                                                            
-def register(request):
-    global cnt
+qList=[]
+aList=[]                                                                                          
+def register(request):   
+    global cnt,qList,aList
     AnswerFormSet = formset_factory(forms.AnswerForm, extra=3)
 
     if request.method == 'GET':
+        cnt=0
+        qList=[]
+        aList=[] 
         form = forms.QnaForm()
         formset = AnswerFormSet()
         return render(request, 'curation/register.html', {'form': form, 'formset': formset})
     
     elif request.method == 'POST':
         form = forms.QnaForm(request.POST)
-        print(request.POST['question_text'])
         formset = AnswerFormSet(request.POST)
-    
-        # formset_data = {}
-        # for key, value in request.POST.items():
-        #     if key.startswith('form-'):
-        #         field_name = key.split('-', 1)[1]  
-        #         field_name = field_name.split('-', 1)[1]  
-        #         formset_data[field_name] = value
-
-        # formset2 = AnswerFormSet(formset_data)
-        # print(formset_data)
-
-        # for key, value in request.POST.items():
-        #     print(f"{key} : {value}")
-        # print(formset2.is_valid())
 
         if form.is_valid() and formset.is_valid():
-            
+            # print(request.POST['q_index'])
             parent = form.save(commit=False)
-            parent.save()
+            qList.append(parent)
+            # parent.save()
             # form.save()한 뒤에 form.cleaned_data['칼럼명']을 reverse()로 전달하여 질문 카테고리에 따라 동적으로 redirect 페이지를 변경
             question_category=form.cleaned_data['question_category']
 
             for form2 in formset:
                 child = form2.save(commit=False)
                 child.question = parent
-                child.save()
+                aList.append(child)
+                # child.save()
             cnt+=1
             print(cnt)
 
@@ -60,6 +57,12 @@ def register(request):
             # formset = AnswerFormSet()
 
             if cnt == 2 :
+                for q in qList:
+                    q.save()
+
+                for a in aList:
+                    a.save()
+
                 url = reverse(f'curation:{question_category}')
                 cnt=0 # 질문 갯수를 채우면, 다시 카운트를 0으로 돌려줘야
                 return HttpResponseRedirect(url)
@@ -69,7 +72,9 @@ def register(request):
         else:
             print('not valid form')
             return render(request, 'curation/register.html', {'form': form, 'formset': formset})
-        
+
+
+
 def main(request):
     return render(request, 'curation/main.html')
 

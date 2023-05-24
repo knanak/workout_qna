@@ -18,6 +18,8 @@ from . import forms, models
 User = get_user_model()
 
 
+
+
 def register(request):
     if request.method == 'GET':
         form = forms.RegistrationForm()

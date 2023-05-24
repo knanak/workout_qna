@@ -21,11 +21,26 @@ class AnswerCategory(TimeStamp):
 
 
 class Question(TimeStamp):
+    # q_index = q_index = models.AutoField(unique=True, null=True)
     question_category = models.ForeignKey(QuestionCategory, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=300, null=True)
     
     def __str__(self):
         return self.question_text
+    
+    # def save(self, *args, **kwargs):
+        
+        # if not self.q_index:
+        #     # Get the count of existing questions
+        #     question_count = Question.objects.count()
+            
+        #     if question_count < 7:
+        #         # Assign the index based on the count of existing questions
+        #         self.q_index = question_count + 1
+        #     else:
+        #         # Index exceeds 7, assign a default value or handle as desired
+        #         self.q_index = 0  # or raise an exception, display an error, etc.
+        #         super().save(*args, **kwargs)
 
 
 class Answer(TimeStamp):
