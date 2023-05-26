@@ -11,12 +11,16 @@ body{
   .users {
     font-size: 26px;
     text-align: right;
+    margin-right: 40px;
+    padding-bottom: 30px;
     
   }
 
   .users .user_link{
     color: #5a515a !important;
     text-decoration: none;
+    font-weight: bold;
+    margin-right: 30px; /* Adjust the value to set the desired margin */
   }
   .users .user_link:hover{color: rgb(208, 19, 255)!important;}
   

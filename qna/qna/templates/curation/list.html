@@ -1,0 +1,52 @@
+{%extends 'curation/base.html'%}
+{% load static%}
+{% load remainder %}
+
+
+{%block content%}
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, auto);
+        grid-row-gap: 60px; /* Add the desired margin between rows */
+        font-size: 30px;
+    }
+
+    .icon{
+        text-align: right;
+        font-size: 30px;
+    }
+    .icon a {
+        margin-right: 30px; /* Adjust the value to set the desired margin */
+    }
+</style>
+
+<div class="icon">
+    <a href="#">QnA 수정</a>
+    <a href="{%url 'curation:getQna' q_s.question_category.name.value q_s.id.value %}">QnA 테스트</a>
+    <br><br>
+</div>
+
+
+<div class="grid-container">
+    {% for q in question_data %}
+        <div>
+            <strong>{{ q.question.question_text }}</strong>
+            <br>
+        
+            {% for answer in q.answers %}
+                {{ answer.answer_text }}
+                <br>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+
+
+
+{%endblock content%}
+
+

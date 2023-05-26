@@ -25,7 +25,7 @@ class QnaSerializer(serializers.ModelSerializer):
     
     class Meta :
         model=models.Question
-        fields=("id", "question_category", "question_text", "answer_q")
+        fields=("id", "question_category", "question_title", "question_text", "answer_q")
 
 
 class ResultSerializer(serializers.ModelSerializer):

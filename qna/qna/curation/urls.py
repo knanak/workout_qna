@@ -14,6 +14,7 @@ urlpatterns = [
     path("qna/<str:q_name>/<int:q_id>/", views.getQna, name="getQna"),
     path("result/", views.result, name="result"),
     path("manage/", views.manage, name="manage"),
+    path("<int:q_id>/list/", views.list, name="list"),
 
     path("qnaResister/", views.register, name="register"),
 

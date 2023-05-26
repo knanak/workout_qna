@@ -5,6 +5,7 @@
 <form action="{% url 'curation:register' %}" method="post">
     {%csrf_token%}
     <div class="form">
+        <br>
         {{form.as_p}}
         <br><br>
         <style>

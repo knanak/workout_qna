@@ -1,1 +1,28 @@
-manage
+
+{%extends 'curation/base.html'%}
+{% load static%}
+{% load remainder %}
+
+
+{%block content%}
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Three columns */
+        grid-gap: 10px; /* Gap between grid items */
+    }
+</style>
+
+{% for item in data %}
+    
+    {% if forloop.counter|remainder:7 == 1 %}
+        <!-- Index: {{ forloop.counter }} -->
+        <a href="{%url 'curation:list' item.id %}">Question: {{ item.question_title }}</a>
+        <br><br><br><br>
+    {% endif %}
+{% endfor %}
+
+
+{%endblock content%}
+
+

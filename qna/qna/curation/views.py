@@ -6,15 +6,41 @@ from django.forms import formset_factory
 from django.core.cache import cache
 from . import models, serializers, forms
 import json, copy
-from operator import itemgetter
+
 
 selected=[]
 answer=[]
 first, endPont=5, 11
 
+def list(request, q_id):
+    if request.user.is_authenticated:
+        q = models.Question.objects.get(id=q_id)
+        q_s=serializer = serializers.QnaSerializer(q)
+
+        questions = models.Question.objects.filter(id__range=(q_id, q_id + 6)).order_by("id")
+        question_data = []
+        for question in questions:
+            serializer = serializers.QnaSerializer(question)
+            question_data.append({
+                'question': serializer.data,
+                'answers': question.answer_q.all()[:3]  # Retrieve three answers for each question
+            })
+
+        return render(request, 'curation/list.html', {'q_s':q_s, 'question_data': question_data})
+
+
+        if request.method == 'GET':
+            form=forms.QnaForm(instance=questions)
+            return render(request, 'curation/list.html', {"form":form, "questions":questions})
+
 
 def manage(request):
-    return render(request, 'users/manage.html')
+    if request.user.is_authenticated:
+        if not request.user.user_type.userType == 'customer':
+            questions = models.Question.objects.all().order_by("create")
+            serializer = serializers.QnaSerializer(questions, many=True)
+            return render(request, 'curation/manage.html', {'data':serializer.data})
+          
 
 cnt = 0
 qList=[]
@@ -52,8 +78,8 @@ def register(request):
             print(cnt)
 
             # 이전 입력값 지워주기
-            # form = forms.QnaForm(initial={'question_category': form.cleaned_data['question_category'],
-            #                               'question_text':form.cleaned_data['question_text']})
+            form = forms.QnaForm(initial={'question_category': form.cleaned_data['question_category'],
+                                          'question_title':form.cleaned_data['question_title']})
             # formset = AnswerFormSet()
 
             if cnt == 2 :
@@ -107,6 +133,7 @@ def knee(request):
 
 def getQna(request, q_name, q_id):
     if request.method == 'GET':
+        
         # question=get_object_or_404(models.Question, pk=1)
         # question=models.Question.objects.get(id=q_id)
         # serializer = serializers.QnaSerializer(question)
@@ -127,6 +154,7 @@ def getQna(request, q_name, q_id):
             return redirect(reverse('curation:result'))
         
         else :
+            
             question = models.Question.objects.get(question_category__name__iexact=q_name, id=q_id+1)
             serializer = serializers.QnaSerializer(question)
             return render(request, 'curation/qna.html', {"question":serializer.data})
@@ -148,7 +176,6 @@ def getQna(request, q_name, q_id):
         # })
         data = json.loads(request.body.decode('utf-8'))
         selected.append(data)
-        print(data)
         return JsonResponse(status=200, data=response_body)
     
 
@@ -175,5 +202,4 @@ def result(request):
     serializer = serializers.ResultSerializer(answer_result)
     
     return render(request, 'curation/result.html', {'result':serializer.data})
-
 

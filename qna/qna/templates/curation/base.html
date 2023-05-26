@@ -20,7 +20,7 @@
     <!-- <link rel="shortcut icon" href="favicon.ico">
     <link rel="apple-touch-icon-precomposed" href="favicon.ico" /> -->
 
-    <title>허리 통증 운동</title>
+    <title>증상별 운동</title>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,19 +86,19 @@
   <div class="users">
     {% if not request.user.is_authenticated %}
         <a class="user_link" href="{%url 'users:login'%}">로그인</a>
-        <br>
+        
         <a class="user_link" href="{% url 'users:register' %}">회원가입</a>
-        <br><br>
+        
       {% elif request.user.is_authenticated %}
     
         <a class="user_link" href="{%url 'users:logout'%}">로그아웃</a>
-        <br>
+        
         {% if not request.user.user_type.userType == 'customer' %}
         
             <a class="user_link" href="{%url 'curation:register'%}">QnA 등록</a>
-            <br>
+            
             <a class="user_link" href="{%url 'curation:manage'%}">QnA 관리</a>
-            <br>
+           
         {%endif%}
       {%endif%}
 
@@ -107,7 +107,7 @@
 
 
 <section id="main" class="mx-auto pb-3 pt-3">
-  <h2>필라테스 강사가 추천하는 <br> 통증별 운동프로그램</h2>
+  {% comment %} <h2>필라테스 강사가 추천하는 <br> 통증별 운동프로그램</h2> {% endcomment %}
 
 
 {%block content %}

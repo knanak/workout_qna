@@ -7,7 +7,7 @@ from .models import Answer, Question
 class QnaForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields=['question_category', 'question_text']
+        fields=['question_category', 'question_title', 'question_text']
         labels = {}
 
     
@@ -29,5 +29,4 @@ class AnswerForm(forms.ModelForm):
     #         self.answer_forms.is_valid()  # Call is_valid() on the formset to trigger the clean() method
     #         self.answer_forms.save()
     #     return question
-
 
