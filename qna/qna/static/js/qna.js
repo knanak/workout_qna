@@ -46,6 +46,7 @@ async function goNext(qqq) {
   const Qqid=qqq.split("-")[1]
   const aid=qqq.split("-")[2]
   a_num=(parseInt(aid)-16)%3
+  const broker = { qqid: Qqid, aaid: aid };
 
   // 선택한 답안을 session 스토리지에 저장하기
   // Retrieve the array from session storage

@@ -8,11 +8,16 @@
 <style>
     .grid-container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(3, auto);
-        grid-row-gap: 60px; /* Add the desired margin between rows */
-        font-size: 30px;
+        grid-row-gap: 50px; /* Add the desired margin between rows */
+        font-size: 25px;
     }
+    .grid-container a{
+        text-decoration: none;
+        color: rgb(26, 26, 26);
+    }
+    .grid-container a:hover{color: #bb27ff!important;}
 
     .icon{
         text-align: right;
@@ -20,7 +25,10 @@
     }
     .icon a {
         margin-right: 30px; /* Adjust the value to set the desired margin */
+        text-decoration: none;
+        color: rgb(26, 26, 26);
     }
+    .icon a:hover{color: #bb27ff!important;}
 </style>
 
 <div class="icon">
@@ -33,13 +41,15 @@
 <div class="grid-container">
     {% for q in question_data %}
         <div>
+            <a href="{%url 'curation:edit' q.question.id %}">
             <strong>{{ q.question.question_text }}</strong>
             <br>
         
             {% for answer in q.answers %}
-                {{ answer.answer_text }}
+            {{ answer.answer_text }}
                 <br>
             {% endfor %}
+            </a>
         </div>
     {% endfor %}
 </div>

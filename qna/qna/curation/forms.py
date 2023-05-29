@@ -2,6 +2,13 @@ from django import forms
 from django.forms import modelformset_factory
 from .models import Answer, Question
 
+class EditQnaForm(forms.ModelForm):
+    question_text = forms.CharField(widget=forms.Textarea(attrs={'rows':3}))
+    class Meta:
+        model = Question
+        fields=['question_text']
+        labels = {}
+
 
 
 class QnaForm(forms.ModelForm):

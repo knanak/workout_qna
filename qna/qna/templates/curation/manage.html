@@ -1,4 +1,3 @@
-
 {%extends 'curation/base.html'%}
 {% load static%}
 {% load remainder %}
@@ -11,15 +10,26 @@
         grid-template-columns: repeat(3, 1fr); /* Three columns */
         grid-gap: 10px; /* Gap between grid items */
     }
+    .title{
+        font-size: 32px;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    a:hover{color: #f78296!important;}
 </style>
 
 {% for item in data %}
-    
-    {% if forloop.counter|remainder:7 == 1 %}
-        <!-- Index: {{ forloop.counter }} -->
-        <a href="{%url 'curation:list' item.id %}">Question: {{ item.question_title }}</a>
-        <br><br><br><br>
-    {% endif %}
+    {% if user.id == item.author.id %}
+        <div class="title">
+        {% if forloop.counter|remainder:7 == 1 %}
+            <!-- Index: {{ forloop.counter }} -->
+            <a href="{%url 'curation:list' item.id %}">Q. {{ item.question_title }}</a>
+            <br><br>
+        {% endif %}
+        </div>
+    {%endif%}
 {% endfor %}
 
 

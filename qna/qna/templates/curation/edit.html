@@ -1,0 +1,46 @@
+{%extends 'curation/base.html'%}
+{% load static%}
+
+{%block content%}
+<style>
+    .form{
+        font-size: 26px;
+    }
+    .answer_table {
+        margin: 0 auto;
+        
+    }
+</style>
+
+
+<form action="{% url 'curation:edit' question.id %}" method="post">
+    {%csrf_token%}
+    <div class="form">
+        <br>
+        {{form.question_text}}
+        <br><br>
+        
+        <table class="answer_table">
+            <tr>
+                <th>답안</th>
+                <th>가중치</th>
+                <th>카테고리</th>
+            </tr>
+            
+            {% for form in formset %}
+            {{formset.management_form}}
+            <tr>
+                <td>{{ form.answer_text }}</td>
+                <td>{{ form.value }}</td>
+                <td>{{ form.category }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br><br><br>
+        <input type="submit" value="수정">
+    </div>
+</form>
+{%endblock content%}
+
+
+

@@ -1,4 +1,5 @@
 from django.db import models
+from qna.users import models as user_model
 
 class TimeStamp(models.Model):
     create=models.DateTimeField(auto_now_add=True)
@@ -21,7 +22,7 @@ class AnswerCategory(TimeStamp):
 
 
 class Question(TimeStamp):
-    # q_index = q_index = models.AutoField(unique=True, null=True)
+    author=models.ForeignKey(user_model.User, on_delete=models.CASCADE, related_name='autor_q', null=True)
     question_title = models.CharField(max_length=300, null=True)
     question_category = models.ForeignKey(QuestionCategory, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=300, null=True)
@@ -44,6 +45,7 @@ class Answer(TimeStamp):
             return self.answer_text
         else:
             return "No answer provided"
+
 
 class Result(TimeStamp):
     name = models.CharField(max_length=500, null=True)
